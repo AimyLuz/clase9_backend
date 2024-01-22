@@ -1,4 +1,6 @@
 import express from 'express';
+
+
 const router = express.Router();
 
 const users =[
@@ -57,10 +59,22 @@ router.get('/', (req, res)=> {
     const azar = Math.floor(Math.random() * users.length);
 
 
-    res.render('index', {user: users[azar], style: 'index.css',
-    isAdmin: users[azar].role === 'admin',
+    res.render('index', {
+        user: users[azar],
+        style: 'index.css',
+        isAdmin: users[azar].role === 'admin',
 food }
     );
+});
+router.get('/register',(req, res)=> {
+    console.log(users)
+    res.render('register')
+});
+router.post('/user', (req,res)=>{
+    const {name, email, pass} = req.body;
+    console.log({name, email, pass});
+    users.push({name, email, pass});
+    res.render('register', {registroExitoso: true})
 });
 
 export default router;
